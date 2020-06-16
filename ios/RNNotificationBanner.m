@@ -51,7 +51,12 @@ RCT_EXPORT_METHOD(Show:(NSDictionary *)props onClick:(RCTResponseSenderBlock)onC
     if (icon != nil && [icon count] > 0 && [withIcon intValue] == 1) {
         drawable = [RNImageHelper GenerateImage: icon];
     }else if(imageString != nil && [withIcon intValue] == 1){
-        drawable =[RCTConvert UIImage: imageString];
+        if ([imageString hasPrefix:@"http"]){
+            drawable = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
+        }else{
+            drawable =[RCTConvert UIImage: imageString];
+        }
+        
     }
     if (tintColorValue != nil && [tintColorValue length] > 0) {
         tintColor = [RNImageHelper ColorFromHexCode: tintColorValue];

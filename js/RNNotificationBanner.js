@@ -129,7 +129,9 @@ class NotificationBanner extends PureComponent {
 				// props.icon = Object.assign({}, icon, vectorIcon);
 				props.icon = undefined;
 			} else if (props.image) {
-				props.image = Image.resolveAssetSource(props.image);
+				if (typeof props.image === 'number') {
+					props.image = Image.resolveAssetSource(props.image);
+				}
 			}
 		} else {
 			props.icon = undefined;
