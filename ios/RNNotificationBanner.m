@@ -51,7 +51,7 @@ RCT_EXPORT_METHOD(Show:(NSDictionary *)props onClick:(RCTResponseSenderBlock)onC
     if (icon != nil && [icon count] > 0 && [withIcon intValue] == 1) {
         drawable = [RNImageHelper GenerateImage: icon];
     }else if(imageString != nil && [withIcon intValue] == 1){
-        if ([imageString hasPrefix:@"http"]){
+        if ([imageString isKindOfClass:[NSString class]]){
             drawable = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageString]]];
         }else{
             drawable =[RCTConvert UIImage: imageString];
