@@ -107,9 +107,10 @@ class NotificationBanner extends PureComponent {
 		if (props.withIcon) {
 			if (props.icon && props.icon.props) {
 				let icon = props.icon.props;
-				const RNImageHelper = require('react-native-image-helper');
-				let vectorIcon = RNImageHelper.Resolve(icon.family, icon.name);
-				props.icon = Object.assign({}, icon, vectorIcon);
+				// const RNImageHelper = require('react-native-image-helper');
+				// let vectorIcon = RNImageHelper.Resolve(icon.family, icon.name);
+				// props.icon = Object.assign({}, icon, vectorIcon);
+				props.icon = undefined;
 			}
 		} else {
 			props.icon = undefined;
