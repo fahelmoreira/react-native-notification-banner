@@ -39,6 +39,9 @@ RCT_EXPORT_METHOD(Show:(NSDictionary *)props onClick:(RCTResponseSenderBlock)onC
     
     NSString *imageString = [props objectForKey: @"image"];
     
+    NSNumber *animateIcon = [props objectForKey: @"animateIcon"];
+    NSNumber *roundedImage = [props objectForKey: @"roundedImage"];
+    
     UIImage *drawable = nil;
     
     UIColor *tintColor = nil;
@@ -47,7 +50,7 @@ RCT_EXPORT_METHOD(Show:(NSDictionary *)props onClick:(RCTResponseSenderBlock)onC
     
     if (icon != nil && [icon count] > 0 && [withIcon intValue] == 1) {
         drawable = [RNImageHelper GenerateImage: icon];
-    }else if(imageString != nil){
+    }else if(imageString != nil && [withIcon intValue] == 1){
         drawable =[RCTConvert UIImage: imageString];
     }
     if (tintColorValue != nil && [tintColorValue length] > 0) {
@@ -63,7 +66,7 @@ RCT_EXPORT_METHOD(Show:(NSDictionary *)props onClick:(RCTResponseSenderBlock)onC
     //        style.titleFont = [UIFont systemFontOfSize: [titleSize intValue]];
     //    }
     
-    _banner = [[Banner alloc] initWithTitle:title subtitle:subTitle image:drawable enableProgress:[enableProgress boolValue] backgroundColor:tintColor didTapBlock:nil animateIcon:true roundedImage:true];
+    _banner = [[Banner alloc] initWithTitle:title subtitle:subTitle image:drawable enableProgress:[enableProgress boolValue] backgroundColor:tintColor didTapBlock:nil animateIcon:[animateIcon boolValue] roundedImage:[roundedImage boolValue]];
     
     if (titleColor != nil) {
         _banner.titleLabel.textColor = titleColor;

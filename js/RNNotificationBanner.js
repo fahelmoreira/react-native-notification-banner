@@ -28,6 +28,8 @@ class NotificationBanner extends PureComponent {
 
 		duration: PropTypes.number,
 		enableProgress: PropTypes.bool,
+		animateIcon: PropTypes.bool,
+		roundedImage: PropTypes.bool,
 		tintColor: PropTypes.string,
 
 		withIcon: PropTypes.bool,
@@ -54,6 +56,8 @@ class NotificationBanner extends PureComponent {
 
 		duration: 0,
 		enableProgress: false,
+		animateIcon: false,
+		roundedImage: false,
 
 		tintColor: '',
 		withIcon: true,
@@ -98,6 +102,12 @@ class NotificationBanner extends PureComponent {
 		if (props.enableProgress === undefined)
 			props.enableProgress = NotificationBanner.defaultProps.enableProgress;
 
+		if (props.animateIcon === undefined)
+			props.animateIcon = NotificationBanner.defaultProps.animateIcon;
+
+		if (props.roundedImage === undefined)
+			props.roundedImage = NotificationBanner.defaultProps.roundedImage;
+
 		if (props.tintColor === undefined)
 			props.tintColor = NotificationBanner.defaultProps.tintColor;
 		if (props.withIcon === undefined)
@@ -108,7 +118,7 @@ class NotificationBanner extends PureComponent {
 		}
 
 		if (props.image === undefined) {
-			props.dismissable = NotificationBanner.defaultProps.image;
+			props.image = NotificationBanner.defaultProps.image;
 		}
 
 		if (props.withIcon) {
