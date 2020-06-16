@@ -36,15 +36,19 @@ RCT_EXPORT_METHOD(Show:(NSDictionary *)props onClick:(RCTResponseSenderBlock)onC
     
     NSNumber *withIcon = [props objectForKey: @"withIcon"];
     NSDictionary *icon = [props objectForKey: @"icon"];
+    
+    NSString *imageString = [props objectForKey: @"image"];
+    
     UIImage *drawable = nil;
     
     UIColor *tintColor = nil;
     UIColor *titleColor = nil;
-    
 //    CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
     
     if (icon != nil && [icon count] > 0 && [withIcon intValue] == 1) {
         drawable = [RNImageHelper GenerateImage: icon];
+    }else if(imageString != nil){
+        drawable =[RCTConvert UIImage: imageString];
     }
     if (tintColorValue != nil && [tintColorValue length] > 0) {
         tintColor = [RNImageHelper ColorFromHexCode: tintColorValue];
@@ -59,7 +63,7 @@ RCT_EXPORT_METHOD(Show:(NSDictionary *)props onClick:(RCTResponseSenderBlock)onC
     //        style.titleFont = [UIFont systemFontOfSize: [titleSize intValue]];
     //    }
     
-    _banner = [[Banner alloc] initWithTitle:title subtitle:subTitle image:drawable enableProgress:[enableProgress boolValue] backgroundColor:tintColor didTapBlock:nil];
+    _banner = [[Banner alloc] initWithTitle:title subtitle:subTitle image:drawable enableProgress:[enableProgress boolValue] backgroundColor:tintColor didTapBlock:nil animateIcon:true roundedImage:true];
     
     if (titleColor != nil) {
         _banner.titleLabel.textColor = titleColor;
@@ -76,6 +80,7 @@ RCT_EXPORT_METHOD(Show:(NSDictionary *)props onClick:(RCTResponseSenderBlock)onC
         _onClickCallback = nil;
         _onHideCallback = nil;
     };
+    
 
     if ([duration intValue] == 0) {
         [_banner show];
@@ -91,4 +96,3 @@ RCT_EXPORT_METHOD(Dismiss) {
 }
 
 @end
-  

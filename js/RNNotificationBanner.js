@@ -4,6 +4,7 @@ import {
 	ViewPropTypes,
 	NativeModules,
 	Platform,
+	Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -31,6 +32,8 @@ class NotificationBanner extends PureComponent {
 
 		withIcon: PropTypes.bool,
 		icon: PropTypes.object,
+
+		image: PropTypes.object,
 
 		dismissable: PropTypes.bool,
 
@@ -104,6 +107,10 @@ class NotificationBanner extends PureComponent {
 			props.dismissable = NotificationBanner.defaultProps.dismissable;
 		}
 
+		if (props.image === undefined) {
+			props.dismissable = NotificationBanner.defaultProps.image;
+		}
+
 		if (props.withIcon) {
 			if (props.icon && props.icon.props) {
 				let icon = props.icon.props;
@@ -111,6 +118,8 @@ class NotificationBanner extends PureComponent {
 				// let vectorIcon = RNImageHelper.Resolve(icon.family, icon.name);
 				// props.icon = Object.assign({}, icon, vectorIcon);
 				props.icon = undefined;
+			} else if (props.image) {
+				props.image = Image.resolveAssetSource(props.image);
 			}
 		} else {
 			props.icon = undefined;
