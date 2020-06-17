@@ -71,7 +71,7 @@ RCT_EXPORT_METHOD(Show:(NSDictionary *)props onClick:(RCTResponseSenderBlock)onC
     //        style.titleFont = [UIFont systemFontOfSize: [titleSize intValue]];
     //    }
     
-    _banner = [[Banner alloc] initWithTitle:title subtitle:subTitle image:drawable enableProgress:[enableProgress boolValue] backgroundColor:tintColor didTapBlock:nil animateIcon:[animateIcon boolValue] roundedImage:[roundedImage boolValue]];
+    _banner = [[Banner alloc] initWithTitle:title subtitle:subTitle image:drawable enableProgress:[enableProgress boolValue] backgroundColor:tintColor didTapBlock:nil animateIcon:[animateIcon boolValue] roundedImage:[roundedImage boolValue] titleSize:15 subTitleSize:12];
     
     if (titleColor != nil) {
         _banner.titleLabel.textColor = titleColor;
