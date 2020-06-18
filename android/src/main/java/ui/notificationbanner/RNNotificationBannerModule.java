@@ -92,7 +92,6 @@ public class RNNotificationBannerModule extends ReactContextBaseJavaModule {
 
     ReadableMap imageString = props.hasKey("image") ? props.getMap("image") : null;
 
-
     Drawable iconDrawable = null;
 
     int tintColor = 0;
@@ -103,14 +102,14 @@ public class RNNotificationBannerModule extends ReactContextBaseJavaModule {
     if (withIcon) {
       if (icon != null && icon.toHashMap().size() > 0) {
         try {
-          Class<?> clazz = Class.forName("prscx.imagehelper.RNImageHelperModule"); //Controller A or B
-          Class params[] = {ReadableMap.class};
+          Class<?> clazz = Class.forName("prscx.imagehelper.RNImageHelperModule"); // Controller A or B
+          Class params[] = { ReadableMap.class };
           Method method = clazz.getDeclaredMethod("GenerateImage", params);
 
           iconDrawable = (Drawable) method.invoke(null, icon);
         } catch (Exception e) {
         }
-      } else if(imageString != null){
+      } else if (imageString != null) {
         try {
           String uri = imageString.getString("uri");
           ReactApplicationContext currActivity = this.getReactApplicationContext();
@@ -118,10 +117,10 @@ public class RNNotificationBannerModule extends ReactContextBaseJavaModule {
           ImageSource imageSource = new ImageSource(context2, uri);
           Uri imageUri = imageSource.getUri();
           Bitmap bmp = null;
-          if(!imageSource.isResource()){
+          if (!imageSource.isResource()) {
             URL url = new URL(uri);
             bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-          }else{
+          } else {
             int resourceId = context2.getResources().getIdentifier(uri, "drawable", context2.getPackageName());
             bmp = BitmapFactory.decodeResource(context2.getResources(), resourceId);
           }
@@ -129,75 +128,74 @@ public class RNNotificationBannerModule extends ReactContextBaseJavaModule {
         } catch (Exception e) {
           e.printStackTrace();
         }
-//        iconDrawable =
+        // iconDrawable =
       }
     }
 
     if (titleColor != null && titleColor.length() > 0) {
-//      config.setTextColor(Color.parseColor(titleColor));
+      // config.setTextColor(Color.parseColor(titleColor));
     }
     if (titleSize != 0) {
-//      config.setTextSize(titleSize);
+      // config.setTextSize(titleSize);
     }
-
 
     if (tintColorValue != null && tintColorValue.length() > 0) {
       tintColor = Color.parseColor(tintColorValue);
     }
 
     Alerter alerter = Alerter.create(getCurrentActivity());
-      alerter = alerter.setTitle(title);
-      alerter = alerter.setText(subTitle);
-      alerter.setIconColorFilter(0)
+    alerter = alerter.setTitle(title);
+    alerter = alerter.setText(subTitle);
+    alerter.setIconColorFilter(0);
 
-      if (iconDrawable != null && enableProgress == false) {
-        alerter = alerter.setIcon(iconDrawable);
-      } else {
-        alerter = alerter.hideIcon();
-      }
+    if (iconDrawable != null && enableProgress == false) {
+      alerter = alerter.setIcon(iconDrawable);
+    } else {
+      alerter = alerter.hideIcon();
+    }
 
-      if (tintColor != 0) {
-        alerter = alerter.setBackgroundColorInt(tintColor);
-      }
+    if (tintColor != 0) {
+      alerter = alerter.setBackgroundColorInt(tintColor);
+    }
 
-      if (!dismissable) {
-        alerter = alerter.setDismissable(dismissable);
-      }
+    if (!dismissable) {
+      alerter = alerter.setDismissable(dismissable);
+    }
 
-      alerter = alerter.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          if (onClickCallback != null) {
-            onClickCallback.invoke();
+    alerter = alerter.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (onClickCallback != null) {
+          onClickCallback.invoke();
 
-            onClickCallback = null;
-            onHideCallback = null;
-          }
+          onClickCallback = null;
+          onHideCallback = null;
         }
-      });
+      }
+    });
 
-      alerter = alerter.setOnHideListener(new OnHideAlertListener() {
-        @Override
-        public void onHide() {
-          if (onHideCallback != null) {
-            onHideCallback.invoke();
+    alerter = alerter.setOnHideListener(new OnHideAlertListener() {
+      @Override
+      public void onHide() {
+        if (onHideCallback != null) {
+          onHideCallback.invoke();
 
-            onHideCallback = null;
-            onClickCallback = null;
-          }
+          onHideCallback = null;
+          onClickCallback = null;
         }
-      });
-
-      if (enableProgress) {
-        alerter.enableProgress(true);
-        alerter.setProgressColorInt(Color.WHITE);
       }
+    });
 
-      if (duration != 0) {
-        alerter.setDuration(duration);
-      }
+    if (enableProgress) {
+      alerter.enableProgress(true);
+      alerter.setProgressColorInt(Color.WHITE);
+    }
 
-      alerter.show();
+    if (duration != 0) {
+      alerter.setDuration(duration);
+    }
+
+    alerter.show();
   }
 
   @ReactMethod
