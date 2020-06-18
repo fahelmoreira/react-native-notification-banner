@@ -59,7 +59,7 @@ A simple lightweight dropdown banner library using creates native capabilities
 
   use_frameworks!
 
-  pod 'BRYXBanner', :git => 'https://github.com/prscX/BRYXBanner.git', :branch => 'master'
+  pod 'BRYXBanner', :git => 'https://github.com/fahelmoreira/BRYXBanner.git', :branch => 'master'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|
